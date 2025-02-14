@@ -2,7 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@property --triangle-color {
+  syntax: "<color>";
+  initial-value: lightblue;
+}
+
+@property --triangle-rotation {
+  syntax: "<angle>";
+  initial-value: -45deg;
+}
+
 :root {
+  --triangle-color: lightblue;
+  --triangle-rotation: -45deg;
   --background: #323232;
   --foreground: #fff;
   --color2: #9ffeff;
