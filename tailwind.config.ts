@@ -1,4 +1,6 @@
 import type { Config } from "tailwindcss";
+// @ts-expect-error - Easing plugin is not typed
+import easing from "tailwindcss-easing";
 
 export default {
   content: [
@@ -14,5 +16,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [easing],
 } satisfies Config;

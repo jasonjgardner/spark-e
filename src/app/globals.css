@@ -3,19 +3,60 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #323232;
+  --foreground: #fff;
+  --color2: #9ffeff;
+  --pink: #ff9fcf;
+  --orange: #f78655;
+  --blue: #7ea1e8;
+  --purple: #5d3da4;
+  --dark: #323232;
+  --darkest: #000000;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
+}
+
+@layer components {
+  /* "Blades" are a series of `////` diagonal lines */
+  .blades,
+  .reverse-blades {
+    background-size: 1rem 1rem;
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--foreground) 0,
+      var(--foreground) 2.1px,
+      transparent 0,
+      transparent 50%
+    );
+    background-repeat: repeat-x;
+  }
+
+  .reverse-blades {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      var(--foreground) 0,
+      var(--foreground) 2.1px,
+      transparent 0,
+      transparent 50%
+    );
+  }
+
+  .blade-divider {
+    @apply rotate-45 self-center border-l-2 border-white size-8 my-auto;
+  }
 }
