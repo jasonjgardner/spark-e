@@ -77,11 +77,13 @@ const GenerativeArt: React.FC = () => {
   return (
     <div
       className={styles.grid}
-      style={{
-        "--cell-size": `${cellSize}px`,
-        gridTemplateColumns: `repeat(${cols}, var(--cell-size))`,
-        gridTemplateRows: `repeat(${rows}, var(--cell-size))`,
-      } as React.CSSProperties}
+      style={
+        {
+          "--cell-size": `${cellSize}px`,
+          gridTemplateColumns: `repeat(${cols}, var(--cell-size))`,
+          gridTemplateRows: `repeat(${rows}, var(--cell-size))`,
+        } as React.CSSProperties
+      }
     >
       {cells.map((isFlipped, index) => (
         <div
@@ -92,14 +94,16 @@ const GenerativeArt: React.FC = () => {
         >
           <div
             className={cellPatterns[index] ? styles.triangle : styles.striped}
-            style={{
-              "--triangle-rotation": isFlipped ? "45deg" : "-45deg",
-              "--triangle-color": isFlippedAgain[index]
-                ? "lightblue"
-                : isFlipped
-                  ? "var(--color-1, blue)"
-                  : "var(--color-2, navy)",
-            } as React.CSSProperties}
+            style={
+              {
+                "--triangle-rotation": isFlipped ? "45deg" : "-45deg",
+                "--triangle-color": isFlippedAgain[index]
+                  ? "lightblue"
+                  : isFlipped
+                    ? "var(--color-1, blue)"
+                    : "var(--color-2, navy)",
+              } as React.CSSProperties
+            }
           ></div>
         </div>
       ))}

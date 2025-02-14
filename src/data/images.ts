@@ -32,12 +32,11 @@ const images: GalleryProps["images"] = [
   { url: oilImage, prompt: "Oil spill", expanded: true },
   { url: candyImage, prompt: "Candy covered" },
   { url: yarnImage, prompt: "Pink yarn" },
-  
+
   { url: opalImage, prompt: "Opal" },
   { url: treeImage, prompt: "Tree" },
   { url: blingImage, prompt: "Bling bling" },
-  
-  
+
   { url: friesImage, prompt: "French fries" },
   { url: lavaImage, prompt: "Hot lava" },
   { url: stormImage, prompt: "Stormy weather" },
@@ -49,11 +48,9 @@ const images: GalleryProps["images"] = [
   { url: fountainImage, prompt: "Fountain reflection", expanded: true },
   { url: neonImage, prompt: "Neon" },
   { url: resinImage, prompt: "Plastic resin" },
- 
- 
 
   { url: stairwellImage, prompt: "Stairwell" },
-  
+
   { url: waterfallImage, prompt: "Waterfall" },
   { url: farmImage, prompt: "Farm" },
   { url: laserImage, prompt: "Laser lights" },
@@ -62,8 +59,8 @@ const images: GalleryProps["images"] = [
   { url: iceImage, prompt: "Glacial ice" },
   { url: neonImage2, prompt: "Neon 2", expanded: true },
   { url: secondOpalImage, prompt: "Light opal" },
-   { url: secondCandyImage, prompt: "Candy covered" },
-   { url: riverImage, prompt: "Riverbed" },
+  { url: secondCandyImage, prompt: "Candy covered" },
+  { url: riverImage, prompt: "Riverbed" },
 ];
 
 export default images;

@@ -38,7 +38,7 @@ export default function SubmissionForm({
       className="flex flex-col sm:items-center sm:justify-center"
     >
       <div className="z-10 m-auto flex min-h-fit w-fit max-w-6xl flex-col items-stretch justify-stretch space-y-4 px-4 py-3">
-        <div className="mx-auto flex w-full min-w-sm flex-grow flex-col rounded-md border-2 border-white/50 bg-black/20 p-6 drop-shadow-lg backdrop-blur-xl transition-colors focus-within:bg-blue-950/50 hover:bg-blue-900/50 hover:drop-shadow-2xl">
+        <div className="min-w-sm mx-auto flex w-full flex-grow flex-col rounded-md border-2 border-white/50 bg-black/20 p-6 drop-shadow-lg backdrop-blur-xl transition-colors focus-within:bg-blue-950/50 hover:bg-blue-900/50 hover:drop-shadow-2xl">
           <label
             className="flex items-center text-sm uppercase leading-none tracking-wide text-neutral-50 lg:text-lg"
             htmlFor={id}
@@ -78,12 +78,21 @@ export default function SubmissionForm({
         </div>
       )}
       {imageUrl && (
-        <div className="absolute inset-0 flex items-center justify-center z-10">
-          <div className="bg-black/90 p-4 flex flex-col items-center justify-center rounded-md backdrop-blur-md">
-            <Image src={imageUrl} alt="Generated image" className="size-96 cursor-pointer" width={1024} height={1024} onClick={() => {
-              setImageUrl(null);
-            }} />
-            <Link href="/gallery" className="mt-4"><span className="underline">See it in the gallery</span> →</Link>
+        <div className="absolute inset-0 z-10 flex items-center justify-center">
+          <div className="flex flex-col items-center justify-center rounded-md bg-black/90 p-4 backdrop-blur-md">
+            <Image
+              src={imageUrl}
+              alt="Generated image"
+              className="size-96 cursor-pointer"
+              width={1024}
+              height={1024}
+              onClick={() => {
+                setImageUrl(null);
+              }}
+            />
+            <Link href="/gallery" className="mt-4">
+              <span className="underline">See it in the gallery</span> →
+            </Link>
           </div>
         </div>
       )}
