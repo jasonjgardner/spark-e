@@ -32,7 +32,7 @@ export async function uploadImage(formData: FormData) {
       }
     );
 
-    revalidatePath("/");
+    revalidatePath("/gallery");
     return { url: blob.url };
   } catch (error) {
     console.error(error);

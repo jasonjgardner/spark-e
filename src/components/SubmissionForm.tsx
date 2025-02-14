@@ -2,6 +2,8 @@
 import { useId, useState } from "react";
 import cx from "classix";
 import ExternalIcon from "./ArrowIcon";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function SubmissionForm({
   uploadImage,
@@ -11,14 +13,17 @@ export default function SubmissionForm({
   const id = useId();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+    setImageUrl(null);
     setLoading(true);
     setError(null);
     try {
-      await uploadImage(formData);
+      const { url } = await uploadImage(formData);
+      setImageUrl(url);
     } catch (err) {
       console.error(err);
       setError("An error occurred during the image upload.");
@@ -69,6 +74,16 @@ export default function SubmissionForm({
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="rounded-sm bg-red-500 bg-opacity-90 p-4 text-white">
             {error}
+          </div>
+        </div>
+      )}
+      {imageUrl && (
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+          <div className="bg-black/90 p-4 flex flex-col items-center justify-center rounded-md backdrop-blur-md">
+            <Image src={imageUrl} alt="Generated image" className="size-96 cursor-pointer" width={1024} height={1024} onClick={() => {
+              setImageUrl(null);
+            }} />
+            <Link href="/gallery" className="mt-4"><span className="underline">See it in the gallery</span> →</Link>
           </div>
         </div>
       )}
