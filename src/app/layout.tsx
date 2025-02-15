@@ -8,7 +8,10 @@ import { gantari } from "@/lib/fonts";
 import { LOGO_SIZE } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "SPARK·E",
+  title: {
+    template: "%s /// SPARK·E",
+    default: "SPARK·E",
+  },
   description:
     "Create original, realistic images and art from a text description and apply it to the VML logo.",
   openGraph: {

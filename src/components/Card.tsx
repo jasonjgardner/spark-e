@@ -1,6 +1,7 @@
 import Image, { type StaticImageData } from "next/image";
 import clsx from "classix";
 import { platypi } from "@/lib/fonts";
+import blurSrc from "@/assets/blur.jpg";
 
 export default function Card({
   src,
@@ -12,7 +13,7 @@ export default function Card({
   expanded?: boolean;
 }) {
   return (
-    <div
+    <figure
       className={clsx(
         `group relative aspect-square overflow-clip rounded border border-neutral-800/50 contain-paint md:rounded-xl`,
         expanded && "sm:col-span-2 sm:row-span-2"
@@ -26,9 +27,10 @@ export default function Card({
         width={1024}
         height={1024}
         placeholder="blur"
+        blurDataURL={blurSrc.blurDataURL}
         quality={expanded ? 95 : 75}
       />
-      <div
+      <figcaption
         className={clsx(
           platypi.className,
           "absolute inset-0 grid bg-black/50 p-4 text-white/90 opacity-0 bg-blend-screen ring ring-inset backdrop-blur-2xl backdrop-brightness-75 transition-opacity duration-300 ease-in-out md:rounded-xl md:group-hover:opacity-100"
@@ -37,7 +39,7 @@ export default function Card({
         <p className="m-auto select-none truncate text-balance font-thin md:text-xl">
           {caption}
         </p>
-      </div>
-    </div>
+      </figcaption>
+    </figure>
   );
 }

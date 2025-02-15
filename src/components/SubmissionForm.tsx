@@ -55,30 +55,70 @@ export default function SubmissionForm({
             type="text"
             placeholder="Describe a material, texture or style"
             className={cx(
-              `field-sizing-content min-w-96 placeholder-shown:font-light placeholder-shown:text-center placeholder-shown:text-xl font-normal max-w-2xl resize-x bg-transparent p-4 text-white placeholder-white placeholder-opacity-70 outline-none transition-all duration-300 ease-in-out`
+              `field-sizing-content min-w-96 max-w-2xl resize-x bg-transparent p-4 font-normal text-white placeholder-white placeholder-opacity-70 outline-none transition-all duration-300 ease-in-out placeholder-shown:text-center placeholder-shown:text-xl placeholder-shown:font-light`
             )}
             required
             autoFocus
             size={30}
+            minLength={5}
             maxLength={120}
             autoComplete="off"
             spellCheck="true"
             disabled={loading}
           />
         </div>
+
+        <fieldset className="prompt-controls">
+          <label
+            htmlFor="steps"
+            className="text-sm uppercase leading-none tracking-wide text-neutral-50 ml-4 cursor-pointer"
+            title="Condition Scale"
+          >
+            Weight
+          </label>
+          <input
+            className="text-black accent-white"
+            type="range"
+            id="steps"
+            name="condition_scale"
+            min={0.5}
+            max={1}
+            step={0.01}
+            defaultValue={0.666}
+          />
+
+          <div className="btn-group">
+            <label htmlFor="variant" className="btn">
+              Mask
+              <input
+                type="radio"
+                name="variant"
+                id="mask"
+                value={0}
+                defaultChecked
+              />
+            </label>
+
+            <label htmlFor="variant" className="btn">
+              Edge
+              <input type="radio" name="variant" id="edge" value={1} />
+            </label>
+          </div>
+        </fieldset>
+
         <button
           type="submit"
           disabled={loading}
           className="group z-10 mx-auto mt-16 flex items-center justify-start backdrop-blur-2xl"
         >
-          <div className="ease flex items-center rounded-sm border-2 border-white px-4 py-2 text-lg font-semibold uppercase tracking-wider text-white transition-colors duration-300 group-hover:border-neutral-50 group-disabled:bg-white group-disabled:text-black">
+          <div className="ease flex items-center rounded-sm border-2 border-white px-4 py-2 text-lg font-semibold uppercase tracking-wider text-white transition-colors duration-300 group-hover:border-neutral-50 group-hover:bg-white/10 group-disabled:bg-white group-disabled:text-black">
             {loading ? "Generating..." : "Generate"}
-            <ExternalIcon className="ml-2 h-4 w-4 translate-y-0.5 rotate-45 fill-white group-disabled:hidden" />
+            <ExternalIcon className="ml-2 size-4 translate-y-0.5 rotate-45 fill-white group-disabled:hidden" />
           </div>
         </button>
       </div>
       {error && (
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute inset-0 z-10 flex items-center justify-center">
           <div className="rounded-sm bg-red-500 bg-opacity-90 p-4 text-white">
             {error}
           </div>

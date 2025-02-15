@@ -43,6 +43,47 @@ body {
     sans-serif;
 }
 
+@layer base {
+  details summary {
+    @apply flex cursor-pointer select-none border-b px-1 py-2 text-2xl font-medium tracking-wider text-white;
+    list-style-type: none; /* Updated to remove default list style */
+  }
+
+  details summary::after {
+    @apply ml-auto block size-4 -rotate-45 rounded-sm border-b-2 border-l-2 transition-transform;
+    content: "";
+  }
+
+  details[open] summary::after {
+    transform: rotate(135deg) translateX(0.75rem);
+    transform-origin: center;
+  }
+
+  details summary ~ * {
+    @apply mt-4 h-auto px-4 opacity-100 transition-all duration-300 ease-in-out;
+  }
+
+  .btn {
+    @apply inline-block cursor-pointer select-none rounded-md bg-white/20 border border-white/25 px-4 py-2 font-medium text-white shadow-md transition-all duration-300 ease-in-out relative uppercase tracking-widest text-xs;
+  }
+
+  .btn input[type="radio"] {
+    @apply absolute inset-0 opacity-0 cursor-pointer w-full h-full;
+  }
+
+  .btn-group {
+    @apply flex space-x-1 rounded-xl p-1 border-2 border-transparent focus-within:bg-black/75 transition-colors duration-200 ease-out;
+  }
+
+  .btn:has(:checked) {
+    @apply bg-white/90 text-black cursor-default;
+  }
+
+  .btn:focus {
+    @apply outline-none ring-2 ring-blue-300;
+  }
+}
+
 @layer components {
   /* "Blades" are a series of `////` diagonal lines */
   .blades,
@@ -77,6 +118,31 @@ body {
   }
 
   .prompt-wrapper:focus-within {
-    @apply bg-gradient-to-tr from-neutral-900/50 to-neutral-950/50 transition-all duration-100 ring-2 ring-white border-white;
+    @apply border-white bg-gradient-to-tr from-neutral-900/50 to-neutral-950/50 ring-2 ring-white transition-all duration-100;
+  }
+
+  .prompt-controls {
+    @apply flex items-center justify-between space-x-4 rounded-md bg-black/50 p-1 backdrop-blur-sm border border-white/25 opacity-0 transition-opacity duration-200 ease-in-out;
+  }
+  
+ .prompt-wrapper:is(:focus-within, :not(:has(:placeholder-shown))) + .prompt-controls,
+ .prompt-controls:focus-within {
+    @apply opacity-100;
+  }
+
+  .prompt-controls input {
+    @apply w-full flex-1 bg-transparent font-mono text-lg text-white;
+  }
+
+  .prompt-controls input[type="range"] {
+    @apply h-2 rounded-lg;
+  }
+
+  .prompt-controls input[type="radio"] {
+    @apply flex-1 bg-white accent-white;
+  }
+
+  .prompt-controls input[type="radio"]:checked {
+    @apply bg-blue-600 ring-2 ring-blue-600;
   }
 }
