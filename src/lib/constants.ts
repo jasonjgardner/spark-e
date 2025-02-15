@@ -6,3 +6,5 @@ export const MODEL_SRC =
 export const WEBHOOK_HOST = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : process.env.NGROK_HOST;
+
+export const LOGO_SIZE = 48;

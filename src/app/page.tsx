@@ -7,6 +7,8 @@ import images from "@/data/images";
 import GenerativeArt from "@/components/GenerativeArt";
 
 export default async function Home() {
+  images.length = 14;
+
   return (
     <div className="grid grid-flow-row scroll-smooth sm:grid-cols-3 xl:grid-cols-5">
       <div className="relative col-span-5 h-[66vh] overflow-hidden contain-size">

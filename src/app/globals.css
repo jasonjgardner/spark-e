@@ -69,6 +69,14 @@ body {
   }
 
   .blade-divider {
-    @apply rotate-45 self-center border-l-2 border-white size-8 my-auto;
+    @apply my-auto size-8 rotate-45 self-center border-l-2 border-white;
+  }
+
+  .prompt-wrapper {
+    @apply flex w-full flex-grow flex-col rounded-md border-2 border-white/50 bg-black/20 bg-clip-border p-6 drop-shadow-lg backdrop-blur-xl transition-all hover:bg-blue-900/50 hover:drop-shadow-2xl;
+  }
+
+  .prompt-wrapper:focus-within {
+    @apply bg-gradient-to-tr from-neutral-900/50 to-neutral-950/50 transition-all duration-100 ring-2 ring-white border-white;
   }
 }

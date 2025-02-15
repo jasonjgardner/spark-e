@@ -1,6 +1,7 @@
 import Image, { type StaticImageData } from "next/image";
 import clsx from "classix";
 import { platypi } from "@/lib/fonts";
+
 export default function Card({
   src,
   caption,
@@ -21,9 +22,11 @@ export default function Card({
         className="transition-transform duration-300 group-hover:scale-150"
         src={src}
         alt={caption}
-        loading="lazy"
+        loading={expanded ? "eager" : "lazy"}
         width={1024}
         height={1024}
+        placeholder="blur"
+        quality={expanded ? 95 : 75}
       />
       <div
         className={clsx(

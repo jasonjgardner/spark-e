@@ -2,19 +2,38 @@
 
 import type React from "react";
 import { useEffect, useState, useCallback, useMemo } from "react";
+import cx from "classix";
 import styles from "@/assets/styles/generative-art.module.css";
+import useDebounce from "@/lib/hooks/useDebounce";
+import { LOGO_SIZE } from "@/lib/constants";
 
 const GenerativeArt: React.FC = () => {
+  const [cellNumber, setCellNumber] = useState(LOGO_SIZE);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const debouncedDimensions = useDebounce(dimensions, 100);
   const [cells, setCells] = useState<boolean[]>([]);
 
   const cellSize = Math.round(
-    Math.max(dimensions.width, dimensions.height) / 30
+    Math.max(debouncedDimensions.width, debouncedDimensions.height) / cellNumber
   );
-  const cols = Math.min(Math.floor(dimensions.width / cellSize), 30);
-  const rows = Math.min(Math.floor(dimensions.height / cellSize), 30);
+  const cols = Math.min(
+    Math.floor(debouncedDimensions.width / cellSize),
+    cellNumber
+  );
+  const rows = Math.min(
+    Math.floor(debouncedDimensions.height / cellSize),
+    cellNumber
+  );
 
   const [isFlippedAgain, setIsFlippedAgain] = useState<boolean[]>([]);
+
+  const handleCellHover = useCallback((index: number) => {
+    setCells((prevCells) => {
+      const newCells = [...prevCells];
+      newCells[index] = !newCells[index];
+      return newCells;
+    });
+  }, []);
 
   const handleMouseLeave = useCallback((index: number) => {
     setIsFlippedAgain((prevIsFlippedAgain) => {
@@ -42,23 +61,19 @@ const GenerativeArt: React.FC = () => {
         width: window.innerWidth,
         height: window.innerHeight,
       });
+
+      setCellNumber(
+        Math.floor(Math.min(window.innerWidth, window.innerHeight) / 24)
+      );
     };
 
     // Initial dimensions update
     updateDimensions();
 
-    // Debounced resize handler
-    let timeoutId: NodeJS.Timeout;
-    const debouncedUpdateDimensions = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(updateDimensions, 250);
-    };
-
-    window.addEventListener("resize", debouncedUpdateDimensions);
+    window.addEventListener("resize", updateDimensions);
 
     return () => {
-      window.removeEventListener("resize", debouncedUpdateDimensions);
-      clearTimeout(timeoutId);
+      window.removeEventListener("resize", updateDimensions);
     };
   }, []);
 
@@ -66,17 +81,9 @@ const GenerativeArt: React.FC = () => {
     initializeCells();
   }, [initializeCells]);
 
-  const handleCellHover = (index: number) => {
-    setCells((prevCells) => {
-      const newCells = [...prevCells];
-      newCells[index] = !newCells[index];
-      return newCells;
-    });
-  };
-
   return (
     <div
-      className={styles.grid}
+      className={cx(styles.grid, "")}
       style={
         {
           "--cell-size": `${cellSize}px`,
@@ -88,24 +95,23 @@ const GenerativeArt: React.FC = () => {
       {cells.map((isFlipped, index) => (
         <div
           key={index}
-          className={styles.cell}
           onMouseEnter={() => handleCellHover(index)}
           onMouseLeave={() => handleMouseLeave(index)}
-        >
-          <div
-            className={cellPatterns[index] ? styles.triangle : styles.striped}
-            style={
-              {
-                "--triangle-rotation": isFlipped ? "45deg" : "-45deg",
-                "--triangle-color": isFlippedAgain[index]
-                  ? "lightblue"
-                  : isFlipped
-                    ? "var(--color-1, blue)"
-                    : "var(--color-2, navy)",
-              } as React.CSSProperties
-            }
-          ></div>
-        </div>
+          className={cx(
+            styles.cell,
+            cellPatterns[index] ? styles.triangle : styles.striped
+          )}
+          style={
+            {
+              "--triangle-rotation": isFlipped ? "45deg" : "-45deg",
+              "--triangle-color": isFlippedAgain[index]
+                ? "lightblue"
+                : isFlipped
+                  ? "var(--color-1, blue)"
+                  : "var(--color-2, navy)",
+            } as React.CSSProperties
+          }
+        ></div>
       ))}
     </div>
   );

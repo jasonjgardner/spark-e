@@ -38,26 +38,33 @@ export default function SubmissionForm({
       className="flex flex-col sm:items-center sm:justify-center"
     >
       <div className="z-10 m-auto flex min-h-fit w-fit max-w-6xl flex-col items-stretch justify-stretch space-y-4 px-4 py-3">
-        <div className="min-w-sm mx-auto flex w-full flex-grow flex-col rounded-md border-2 border-white/50 bg-black/20 p-6 drop-shadow-lg backdrop-blur-xl transition-colors focus-within:bg-blue-950/50 hover:bg-blue-900/50 hover:drop-shadow-2xl">
+        <div className="prompt-wrapper">
           <label
-            className="flex items-center text-sm uppercase leading-none tracking-wide text-neutral-50 lg:text-lg"
+            className="flex cursor-pointer select-none items-center text-sm uppercase leading-none tracking-wide text-neutral-50 lg:text-lg"
             htmlFor={id}
           >
-            <span className="pr-4">Prompt</span>{" "}
+            <span className="pr-4 transition-colors duration-300 ease-out hover:text-orange-300">
+              Prompt
+            </span>{" "}
             <span className="blades h-4 w-full flex-1"></span>
           </label>
 
-          <textarea
+          <input
             id={id}
             name="prompt"
+            type="text"
             placeholder="Describe a material, texture or style"
             className={cx(
-              `w-full min-w-72 max-w-2xl resize-x bg-transparent p-4 text-white placeholder-white placeholder-opacity-70 outline-none transition-all duration-300 ease-in-out`
+              `field-sizing-content min-w-96 placeholder-shown:font-light placeholder-shown:text-center placeholder-shown:text-xl font-normal max-w-2xl resize-x bg-transparent p-4 text-white placeholder-white placeholder-opacity-70 outline-none transition-all duration-300 ease-in-out`
             )}
             required
-            rows={3}
             autoFocus
-          ></textarea>
+            size={30}
+            maxLength={120}
+            autoComplete="off"
+            spellCheck="true"
+            disabled={loading}
+          />
         </div>
         <button
           type="submit"
