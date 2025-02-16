@@ -7,11 +7,10 @@ body:has(:focus) :where(.triangle, .striped) {
   contain: strict;
   display: grid;
   width: 100cqw;
-  height: 100cqh;
+  height: min(calc(100vh - 3rem), 100cqh);
   background-color: transparent;
   overflow: hidden;
   gap: 0;
-  z-index: 0;
   user-select: none;
 }
 

@@ -71,7 +71,7 @@ export default function SubmissionForm({
         <fieldset className="prompt-controls">
           <label
             htmlFor="steps"
-            className="text-sm uppercase leading-none tracking-wide text-neutral-50 ml-4 cursor-pointer"
+            className="ml-4 cursor-pointer text-sm uppercase leading-none tracking-wide text-neutral-50"
             title="Condition Scale"
           >
             Weight
@@ -90,6 +90,17 @@ export default function SubmissionForm({
           <div className="btn-group">
             <label htmlFor="variant" className="btn">
               Mask
+              <input
+                type="radio"
+                name="variant"
+                id="mask"
+                value={1}
+                defaultChecked
+              />
+            </label>
+
+            <label htmlFor="variant" className="btn">
+              Reverse
               <input
                 type="radio"
                 name="variant"

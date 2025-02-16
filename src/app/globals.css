@@ -17,7 +17,7 @@
   --triangle-rotation: -45deg;
   --background: #323232;
   --foreground: #fff;
-  --color2: #9ffeff;
+  --cyan: #9ffeff;
   --pink: #ff9fcf;
   --orange: #f78655;
   --blue: #7ea1e8;
@@ -64,19 +64,19 @@ body {
   }
 
   .btn {
-    @apply inline-block cursor-pointer select-none rounded-md bg-white/20 border border-white/25 px-4 py-2 font-medium text-white shadow-md transition-all duration-300 ease-in-out relative uppercase tracking-widest text-xs;
+    @apply relative inline-block cursor-pointer select-none rounded-md border border-white/25 bg-white/20 px-4 py-2 text-xs font-medium uppercase tracking-widest text-white shadow-md transition-all duration-300 ease-in-out;
   }
 
   .btn input[type="radio"] {
-    @apply absolute inset-0 opacity-0 cursor-pointer w-full h-full;
+    @apply absolute inset-0 h-full w-full cursor-pointer opacity-0;
   }
 
   .btn-group {
-    @apply flex space-x-1 rounded-xl p-1 border-2 border-transparent focus-within:bg-black/75 transition-colors duration-200 ease-out;
+    @apply flex space-x-1 rounded-xl border-2 border-transparent p-1 transition-colors duration-200 ease-out focus-within:bg-black/75;
   }
 
   .btn:has(:checked) {
-    @apply bg-white/90 text-black cursor-default;
+    @apply cursor-default bg-white/90 text-black;
   }
 
   .btn:focus {
@@ -122,11 +122,12 @@ body {
   }
 
   .prompt-controls {
-    @apply flex items-center justify-between space-x-4 rounded-md bg-black/50 p-1 backdrop-blur-sm border border-white/25 opacity-0 transition-opacity duration-200 ease-in-out;
+    @apply flex items-center justify-between space-x-4 rounded-md border border-white/25 bg-black/50 p-1 opacity-0 backdrop-blur-sm transition-opacity duration-200 ease-in-out;
   }
-  
- .prompt-wrapper:is(:focus-within, :not(:has(:placeholder-shown))) + .prompt-controls,
- .prompt-controls:focus-within {
+
+  .prompt-wrapper:is(:focus-within, :not(:has(:placeholder-shown)))
+    + .prompt-controls,
+  .prompt-controls:focus-within {
     @apply opacity-100;
   }
 

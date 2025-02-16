@@ -10,6 +10,9 @@ export default {
   ],
   theme: {
     extend: {
+      height: {
+        app: 'calc(100vh - 48px)',
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

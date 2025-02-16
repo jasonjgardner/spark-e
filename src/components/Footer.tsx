@@ -2,6 +2,7 @@ import Link from "next/link";
 import { gantari, platypi } from "@/lib/fonts";
 import clsx from "classix";
 import ChevronIcon from "./ChevronIcon";
+import { PROFILE_LINK } from "@/lib/constants";
 
 export default function Footer() {
   return (
@@ -33,7 +34,7 @@ export default function Footer() {
           By{" "}
           <Link
             className="uppercase tracking-wide underline-offset-2 hover:text-blue-200 group-hover:underline"
-            href="https://my.vml.com/profile/jg-2024-09-17_17-13-28-463"
+            href={PROFILE_LINK}
             prefetch={false}
           >
             Jason Gardner

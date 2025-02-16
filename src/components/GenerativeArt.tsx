@@ -83,7 +83,7 @@ const GenerativeArt: React.FC = () => {
 
   return (
     <div
-      className={cx(styles.grid, "")}
+      className={cx(styles.grid, "contain-strict")}
       style={
         {
           "--cell-size": `${cellSize}px`,
@@ -105,7 +105,7 @@ const GenerativeArt: React.FC = () => {
             {
               "--triangle-rotation": isFlipped ? "45deg" : "-45deg",
               "--triangle-color": isFlippedAgain[index]
-                ? "lightblue"
+                ? "var(--color-0, lightblue)"
                 : isFlipped
                   ? "var(--color-1, blue)"
                   : "var(--color-2, navy)",
