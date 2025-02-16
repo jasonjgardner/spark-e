@@ -2,8 +2,6 @@
 
 import { put } from "@vercel/blob";
 import { revalidatePath } from "next/cache";
-import { controlnetImageGeneration } from "@/lib/ai";
-import { CONTROL_IMAGES } from "@/lib/constants";
 
 const createFileName = (prompt: string, ext: string) => {
   const date = new Date();
@@ -14,25 +12,17 @@ const createFileName = (prompt: string, ext: string) => {
   return `${prompt.replace(/\s+/g, "_")}-${timestamp}.${ext}`;
 };
 
-export async function uploadImage(formData: FormData) {
+export async function uploadImage(formData: FormData): Promise<void> {
   const prompt = formData.get("prompt") as string;
+  const img = formData.get("image") as string;
   const fileName = createFileName(prompt, "png");
 
-  const variant = Number(formData.get("variant")) || 0;
+  if (!img || !(img as string).startsWith("data:image")) {
+    throw new Error("Image data is required");
+  }
 
   try {
-    const img = await controlnetImageGeneration({
-      prompt,
-      image: CONTROL_IMAGES[variant],
-      condition_scale: Number(formData.get("condition_scale")) || 1,
-      num_inference_steps: Number(formData.get("num_inference_steps")) || 50,
-    });
-
-    if (!img) {
-      throw new Error("Image generation failed");
-    }
-
-    const blob = await put(
+    await put(
       fileName,
       Buffer.from(img.replace(/^data:image\/\w+;base64,/, ""), "base64"),
       {
@@ -41,7 +31,6 @@ export async function uploadImage(formData: FormData) {
     );
 
     revalidatePath("/gallery");
-    return { url: blob.url };
   } catch (error) {
     console.error(error);
     throw new Error("Image upload failed");

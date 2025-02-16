@@ -1,14 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
- images: {
-        remotePatterns: [
-            {
-                hostname: "api.together.ai",
-                protocol: "https",
-                pathname: "/imgproxy",
-            },
-            {
+  images: {
+    remotePatterns: [
+      {
+        hostname: "api.together.ai",
+        protocol: "https",
+        pathname: "/imgproxy",
+      },
+      {
         protocol: "https",
         hostname: "replicate.com",
       },
@@ -18,10 +18,15 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "*.public.blob.vercel-storage.com"
-      }
-        ]
-    }
+        hostname: "*.public.blob.vercel-storage.com",
+      },
+    ],
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "2mb",
+    },
+  },
 };
 
 export default nextConfig;

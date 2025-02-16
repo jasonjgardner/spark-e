@@ -7,7 +7,7 @@ export default async function Lead() {
     <div
       className={clsx(
         platypi.className,
-        "mb-auto ml-auto mt-6 px-4 py-6 text-neutral-300 lg:mt-12"
+        "mb-auto ml-auto mt-6 cursor-default px-4 py-6 text-neutral-300 lg:mt-12"
       )}
     >
       <p className="max-w-xl text-balance text-2xl font-thin leading-relaxed sm:text-sm lg:text-lg xl:text-4xl xl:font-light">

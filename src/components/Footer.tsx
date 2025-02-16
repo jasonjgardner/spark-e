@@ -20,17 +20,17 @@ export default function Footer() {
           )}
         >
           <span className="tracking-wide text-neutral-100">Made in</span>{" "}
-          <span className="tracking-wide text-neutral-100 transition-colors duration-300 ease-in-out group-hover:text-red-300">
+          <span className="tracking-wide text-neutral-100 transition-colors duration-300 ease-out-quad group-hover:text-red-300">
             K
           </span>
-          <span className="text-neutral-100 transition-colors duration-300 ease-in-out group-hover:text-yellow-300">
+          <span className="text-neutral-100 transition-colors duration-300 ease-out-quad group-hover:text-yellow-300">
             C
           </span>
-          <span className="translate-y-1 text-2xl opacity-0 transition-[opacity,transform] delay-75 duration-100 ease-in-out group-hover:-translate-y-1 group-hover:opacity-100">
+          <span className="translate-y-1 text-2xl opacity-0 transition-[opacity,transform] delay-75 duration-100 ease-in-sine group-hover:-translate-y-1 group-hover:opacity-100">
             🛫
           </span>
         </p>
-        <p className="px-2 text-xs font-thin text-neutral-100 opacity-60 transition-opacity delay-200 duration-300 ease-in-out group-hover:opacity-100">
+        <p className="px-2 text-xs font-thin text-neutral-100 opacity-60 transition-opacity delay-200 duration-300 ease-in-out-sine group-hover:opacity-100">
           By{" "}
           <Link
             className="uppercase tracking-wide underline-offset-2 hover:text-blue-200 group-hover:underline"
@@ -42,7 +42,7 @@ export default function Footer() {
         </p>
       </div>
       <Link href="#top" className="ml-auto" prefetch={false}>
-        <ChevronIcon className="size-9 -rotate-90 fill-neutral-100 opacity-50 transition-opacity delay-300 duration-300 ease-in-out group-hover:opacity-75" />
+        <ChevronIcon className="size-9 -rotate-90 fill-neutral-100 opacity-50 transition-opacity delay-300 duration-300 ease-in-sine group-hover:opacity-75" />
       </Link>
     </footer>
   );

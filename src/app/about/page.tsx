@@ -15,7 +15,12 @@ export default function About() {
           About <em>SPARK·E</em>
         </h1>
 
-        <div className={cx(platypi.className, "mt-4 text-2xl text-gray-300")}>
+        <div
+          className={cx(
+            platypi.className,
+            "mt-4 cursor-default text-2xl text-gray-300"
+          )}
+        >
           <p className="text-3xl leading-tight tracking-wide">
             <em>SPARK·E</em> is a project created in VML&rsquo;s KC office in
             preparation for the Vercel + WPP v0.dev Hackathon.
@@ -36,10 +41,12 @@ export default function About() {
         </details>
         <details name="case-study" className="mt-8">
           <summary>Inspiration</summary>
-          <p>
-            I generated several examples of applying ControlNet in Stable
-            Diffusion with the VML logo as the control input.
-          </p>
+          <blockquote>
+            <p>
+              I generated several examples of applying ControlNet in Stable
+              Diffusion with the VML logo as the control input.
+            </p>
+          </blockquote>
         </details>
         <details name="case-study" className="mt-8">
           <summary>Idea</summary>
@@ -47,6 +54,8 @@ export default function About() {
         </details>
         <details name="case-study" className="mt-8">
           <summary>Execution</summary>
+
+          <p className="text-xl">Very VML.</p>
         </details>
       </article>
       <div

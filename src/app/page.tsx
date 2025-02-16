@@ -1,5 +1,6 @@
 "use server";
-import { uploadImage } from "../actions/upload";
+import { uploadImage } from "@/actions/upload";
+import generateImage from "@/actions/generate";
 import Gallery from "@/components/Gallery";
 import SubmissionForm from "@/components/SubmissionForm";
 import Lead from "@/components/Lead";
@@ -13,7 +14,10 @@ export default async function Home() {
     <div className="grid grid-flow-row scroll-smooth sm:grid-cols-3 xl:grid-cols-5">
       <div className="relative col-span-5 h-[66vh] overflow-hidden contain-size">
         <div className="absolute inset-0 flex flex-col items-center justify-center justify-items-center">
-          <SubmissionForm uploadImage={uploadImage} />
+          <SubmissionForm
+            generateImage={generateImage}
+            uploadImage={uploadImage}
+          />
         </div>
         <GenerativeArt />
       </div>
