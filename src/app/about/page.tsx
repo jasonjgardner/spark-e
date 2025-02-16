@@ -1,9 +1,7 @@
 import { gantari, platypi } from "@/assets/fonts";
-import ExternalIcon from "@/components/ArrowIcon";
 import GenerativeArt from "@/components/GenerativeArt";
-import { PROFILE_LINK } from "@/lib/constants";
 import cx from "classix";
-import Link from "next/link";
+
 export default function About() {
   return (
     <div className="grid h-app divide-y-2 divide-neutral-950 overflow-hidden contain-size md:grid-cols-4 md:divide-x-2">
