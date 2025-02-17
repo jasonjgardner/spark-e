@@ -16,10 +16,10 @@ export default function PromptControls() {
         type="range"
         id="steps"
         name="condition_scale"
-        min={0.5}
-        max={0.9}
+        min={0.25}
+        max={0.5}
         step={0.01}
-        defaultValue={0.666}
+        defaultValue={0.25}
       />
 
       <div className="btn-group ml-auto">
