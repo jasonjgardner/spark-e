@@ -78,7 +78,7 @@ const GenerativeArt: React.FC<GenerativeArtProps> = ({ pattern }) => {
   }, [cols, rows]);
 
   const initializeCells = useCallback(() => {
-    const newCells = Array.from(
+    const newCells: Array<boolean | null> = Array.from(
       { length: cols * rows },
       () => Math.random() < 0.5
     );
