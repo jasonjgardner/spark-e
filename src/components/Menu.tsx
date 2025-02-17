@@ -11,7 +11,7 @@ export default function Menu() {
       <Link
         href="/gallery"
         className={cx(
-          "transition-opacity duration-100 ease-in-cubic hover:opacity-95",
+          "underline-offset-2 transition-opacity duration-100 ease-in-cubic hover:underline hover:opacity-95",
           pathname === "/gallery"
             ? "font-semibold opacity-100"
             : "font-medium opacity-75"
@@ -23,7 +23,7 @@ export default function Menu() {
       <Link
         href="/about"
         className={cx(
-          "transition-opacity duration-100 ease-in-cubic hover:opacity-95",
+          "underline-offset-2 transition-opacity duration-100 ease-in-cubic hover:underline hover:opacity-95",
           pathname === "/about"
             ? "font-semibold opacity-100"
             : "font-medium opacity-75"

@@ -144,16 +144,29 @@ const ERROR_404_PATTERN: Pattern = {
 
 export default function NotFound() {
   return (
-    <div className="relative flex h-app flex-col lg:flex-row">
-      <div className="flex-shrink lg:w-1/2">
+    <div className="relative flex h-app flex-col divide-x-2 divide-black lg:flex-row">
+      <div
+        className="flex-1 bg-black lg:w-1/2"
+        style={
+          {
+            "--color-1": "hsl(from var(--orange) calc(h + 270) 50% 66%);",
+            "--color-0": "var(--orange);",
+            "--color-2": "hsl(from var(--orange) calc(h + 180) 50% 55%);",
+            "--color-3": "hsl(from var(--orange) calc(h + 90) 50% 60%);",
+          } as React.CSSProperties
+        }
+      >
         <GenerativeArt pattern={ERROR_404_PATTERN} />
       </div>
-      <aside className="blades flex h-1/2 flex-1 flex-col items-center justify-center space-y-4 text-center">
-        <h1 className="text-4xl font-bold">404</h1>
-        <p className="text-lg font-light">
-          The page you were looking for could not be found.
-        </p>
-        <Link href="/">Return home</Link>
+      <aside className="blades grid h-1/2 flex-1 place-content-center">
+        <h1 className="text-xl font-bold uppercase tracking-widest">
+          Page not found
+        </h1>
+        <nav className="flex flex-col space-y-4 text-lg">
+          <Link href="/" className="-ml-6">
+            ← <span className="underline underline-offset-2">Return home</span>
+          </Link>
+        </nav>
       </aside>
     </div>
   );
