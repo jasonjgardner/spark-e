@@ -6,6 +6,7 @@ export interface GalleryProps {
     url: string | StaticImageData;
     prompt: string;
     expanded?: boolean;
+    uploadedDate?: Date;
   }> | null;
   limit?: number;
 }

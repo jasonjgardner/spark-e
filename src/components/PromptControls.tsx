@@ -7,6 +7,25 @@ export default function PromptControls() {
       <label
         htmlFor="steps"
         className="ml-2 cursor-pointer text-sm font-medium uppercase leading-none tracking-wide text-neutral-50 md:ml-4"
+        title="Inference Steps"
+      >
+        Steps
+      </label>
+      <input
+        className="flex-1 text-black accent-white"
+        type="range"
+        id="steps"
+        name="num_inference_steps"
+        min={25}
+        max={150}
+        step={1}
+        defaultValue={50}
+        aria-label="Inference Steps"
+      />
+
+      <label
+        htmlFor="scale"
+        className="ml-2 cursor-pointer text-sm font-medium uppercase leading-none tracking-wide text-neutral-50 md:ml-4"
         title="Condition Scale"
       >
         Logo Influence
@@ -14,12 +33,13 @@ export default function PromptControls() {
       <input
         className="flex-1 text-black accent-white"
         type="range"
-        id="steps"
+        id="scale"
         name="condition_scale"
-        min={0.25}
-        max={0.5}
+        min={0.4}
+        max={0.6}
         step={0.01}
-        defaultValue={0.25}
+        defaultValue={0.5}
+        aria-label="Condition Scale"
       />
 
       <div className="btn-group ml-auto">

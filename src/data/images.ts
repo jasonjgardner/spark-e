@@ -28,15 +28,15 @@ import waterfallImage from "@/assets/images/waterfall.png";
 import riverImage from "@/assets/images/river.png";
 import type { GalleryProps } from "@/components/Gallery";
 
+const SPARK_EPOCH = new Date("2025-02-13T00:00:00Z").getTime();
+
 const images: GalleryProps["images"] = [
   { url: oilImage, prompt: "Oil spill", expanded: true },
   { url: candyImage, prompt: "Candy covered" },
   { url: yarnImage, prompt: "Pink yarn" },
-
   { url: opalImage, prompt: "Opal" },
   { url: treeImage, prompt: "Tree" },
   { url: blingImage, prompt: "Bling bling" },
-
   { url: friesImage, prompt: "French fries" },
   { url: lavaImage, prompt: "Hot lava" },
   { url: stormImage, prompt: "Stormy weather" },
@@ -48,9 +48,7 @@ const images: GalleryProps["images"] = [
   { url: fountainImage, prompt: "Fountain reflection", expanded: true },
   { url: neonImage, prompt: "Neon" },
   { url: resinImage, prompt: "Plastic resin" },
-
   { url: stairwellImage, prompt: "Stairwell" },
-
   { url: waterfallImage, prompt: "Waterfall" },
   { url: farmImage, prompt: "Farm" },
   { url: laserImage, prompt: "Laser lights" },
@@ -61,6 +59,9 @@ const images: GalleryProps["images"] = [
   { url: secondOpalImage, prompt: "Light opal" },
   { url: secondCandyImage, prompt: "Candy covered" },
   { url: riverImage, prompt: "Riverbed" },
-];
+].map((image) => ({
+  ...image,
+  uploadedDate: new Date(SPARK_EPOCH),
+}));
 
 export default images;

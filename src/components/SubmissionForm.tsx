@@ -168,13 +168,13 @@ export default function SubmissionForm({
                   <span className="underline">Visit gallery</span> →
                 </Link>
               ) : loading ? (
-                <span className="animate-pulse cursor-wait text-neutral-600">
+                <span className="animate-pulse cursor-wait pl-4 text-neutral-600">
                   Uploading image...
                 </span>
               ) : (
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center uppercase tracking-wide text-black underline-offset-4 transition-colors duration-300 ease-in-out-sine hover:underline"
+                  className="inline-flex items-center justify-center pl-4 uppercase tracking-wide text-black underline-offset-4 transition-colors duration-300 ease-in-out-sine hover:underline"
                 >
                   Submit to Gallery
                   <ExternalIcon className="ml-2 size-4" />

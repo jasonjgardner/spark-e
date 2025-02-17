@@ -21,18 +21,19 @@ export default async function GalleryPage() {
         .join(" ")
         .replace(/-2025-\d{0,2}-\d{0,2}.*$/, "")
         .trim(),
+      uploadedDate: blob.uploadedAt,
     }));
 
-  const shuffled = [...(images ?? [])]
-    .sort(() => 0.5 - Math.random())
-    .map((image) => ({
+  const allImages = [
+    ...blobImages,
+    ...(images ?? []).map((image) => ({
       ...image,
       expanded: false,
-    }));
-  const selected = shuffled.slice(0, 100); // TODO: Implement pagination
-
-  const allImages = [...blobImages, ...selected];
-
+    })),
+  ].sort(
+    (a, b) =>
+      (b.uploadedDate?.getTime() || 0) - (a.uploadedDate?.getTime() || 0)
+  );
   return (
     <div>
       <Gallery images={allImages} title="All Creations" />

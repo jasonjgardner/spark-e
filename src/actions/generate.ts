@@ -14,7 +14,7 @@ export default async function generateImage(
       prompt,
       image: CONTROL_IMAGES[variant],
       condition_scale: Number(formData.get("condition_scale")) || 1,
-      num_inference_steps: Number(formData.get("num_inference_steps")) || 50,
+      num_inference_steps: Number(formData.get("num_inference_steps")) || 75,
     });
 
     if (!img) {
