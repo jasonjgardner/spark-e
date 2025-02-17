@@ -5,7 +5,8 @@ export const CONTROL_IMAGES: Record<Variant, string> = {
     "https://us395zvdmstimt4f.public.blob.vercel-storage.com/controlnet/canny-KRWEnrFeUH9S1aNv5cAqkGj3fce9lZ.png",
   inside:
     "https://us395zvdmstimt4f.public.blob.vercel-storage.com/controlnet/canny-mask-JlJIAdZaBZAguihW28K1Fo2BZUMxlh.png",
-  edges: "https://d26mkv3tdw1wgb.cloudfront.net/public-images/vml-canny.png",
+  edges:
+    "https://us395zvdmstimt4f.public.blob.vercel-storage.com/controlnet/canny-lines-z0bqSqk9VDsaCQO1lA88sdRI0KnJLk.png",
 };
 export const PROFILE_LINK =
   "https://my.vml.com/profile/jg-2024-09-17_17-13-28-463";

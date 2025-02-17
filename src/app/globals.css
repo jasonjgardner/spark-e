@@ -85,9 +85,11 @@ body {
     @apply size-4 self-end;
     content: close-quote;
   }
+}
 
+@layer components {
   .btn {
-    @apply relative inline-block cursor-pointer select-none rounded-md border border-white/25 bg-white/20 px-4 py-2 text-xs font-medium uppercase tracking-widest text-white shadow-md transition-all duration-300 ease-in-out;
+    @apply relative inline-flex flex-grow cursor-pointer select-none items-center justify-between space-x-2 rounded-md border border-white/25 bg-white/20 px-2 py-1 text-center text-xs font-medium uppercase tracking-widest text-white shadow-md transition-all duration-300 ease-in-out md:flex-grow-0 md:px-4 md:py-2;
   }
 
   .btn input[type="radio"] {
@@ -95,7 +97,7 @@ body {
   }
 
   .btn-group {
-    @apply flex space-x-1 rounded-xl border-2 border-transparent p-1 transition-colors duration-200 ease-out-sine focus-within:bg-black/75;
+    @apply flex flex-grow justify-center space-x-1 rounded-xl border-2 border-transparent p-1 transition-colors duration-200 ease-out-sine focus-within:bg-black/75 md:flex-grow-0;
   }
 
   .btn:hover {
@@ -113,9 +115,11 @@ body {
   .btn:active {
     @apply bg-white/25;
   }
-}
 
-@layer components {
+  .btn-image {
+    @apply aspect-square size-6 rounded-lg border border-neutral-800/50 bg-black/50 bg-clip-border shadow-md transition-shadow duration-200 ease-out hover:shadow-lg;
+  }
+
   /* "Blades" are a series of `////` diagonal lines */
   .blades,
   .reverse-blades {
@@ -153,7 +157,7 @@ body {
   }
 
   .prompt-controls {
-    @apply flex items-center justify-between space-x-4 rounded-md border border-white/25 bg-black/50 p-1 opacity-90 backdrop-blur-md transition-opacity duration-200 ease-out-quad;
+    @apply flex flex-wrap items-center justify-between gap-4 space-x-4 rounded-md border border-white/25 bg-black/50 px-2 py-4 opacity-90 backdrop-blur-md transition-opacity duration-200 ease-out-quad;
   }
 
   .prompt-wrapper:is(:focus-within, :not(:has(:placeholder-shown)))
@@ -189,9 +193,9 @@ body {
   }
 
   .pattern-cell {
-      --triangle-color: white !important;
-      background-color: white;
-    }
+    --triangle-color: white !important;
+    background-color: white;
+  }
 
   .triangle,
   .striped {
