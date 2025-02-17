@@ -60,13 +60,11 @@ body {
   }
 
   .details-content {
-    @apply mt-4 h-0 px-4 opacity-0 transition-all duration-300 ease-in-out hidden;
-
-    
+    @apply mt-4 hidden h-0 px-4 opacity-0 transition-all duration-300 ease-in-out;
   }
 
   details[open] .details-content {
-    @apply h-auto block opacity-100;
+    @apply block h-auto opacity-100;
     @starting-style {
       height: 0;
       opacity: 0;

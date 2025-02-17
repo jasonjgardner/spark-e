@@ -23,7 +23,7 @@ export default async function GalleryPage() {
         .trim(),
     }));
 
-  const shuffled = images
+  const shuffled = [...(images ?? [])]
     .sort(() => 0.5 - Math.random())
     .map((image) => ({
       ...image,
