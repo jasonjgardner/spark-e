@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  details summary {
+    @apply flex cursor-pointer select-none border-b px-1 py-2 text-2xl font-medium tracking-wider text-white;
+    list-style-type: none; /* Updated to remove default list style */
+  }
+
+  details > summary::after {
+    @apply ml-auto block size-6 origin-center transition-transform;
+    content: url("/chevron-thin.svg");
+  }
+
+  details[open] > summary::after {
+    @apply rotate-180 transform;
+  }
+
+  .details-content {
+    @apply mt-4 hidden h-0 px-4 opacity-0 transition-all duration-300 ease-in-out;
+  }
+
+  details[open] .details-content {
+    @apply block h-auto opacity-100;
+    @starting-style {
+      height: 0;
+      opacity: 0;
+    }
+  }
+
+  blockquote {
+    @apply grid text-balance text-2xl font-medium tracking-wider text-white;
+    grid-template-columns: 1em auto 1em;
+  }
+
+  blockquote::before {
+    @apply size-4 justify-self-end;
+    content: open-quote;
+  }
+
+  blockquote::after {
+    @apply size-4 self-end;
+    content: close-quote;
+  }
+}

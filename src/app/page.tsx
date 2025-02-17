@@ -7,6 +7,8 @@ import Lead from "@/components/Lead";
 import images from "@/data/images";
 import GenerativeArt from "@/components/GenerativeArt";
 
+import "./main.css";
+
 export default async function Home() {
   return (
     <div className="grid grid-flow-row scroll-smooth sm:grid-cols-3 xl:grid-cols-5">

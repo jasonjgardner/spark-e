@@ -3,6 +3,7 @@ import { gantari, platypi } from "@/assets/fonts";
 import GenerativeArt from "@/components/GenerativeArt";
 import dynamic from "next/dynamic";
 import cx from "classix";
+import "./about.css";
 
 const AboutAccordion = dynamic(() => import("@/components/AboutAccordion"));
 

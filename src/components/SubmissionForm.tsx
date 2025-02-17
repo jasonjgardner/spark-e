@@ -116,7 +116,7 @@ export default function SubmissionForm({
             disabled={loading}
             className="group z-10 mx-auto mt-16 flex items-center justify-start backdrop-blur-2xl"
           >
-            <div className="ease flex items-center rounded-sm border-2 border-white px-4 py-2 text-lg font-semibold uppercase tracking-wider text-white transition-colors duration-300 group-hover:border-neutral-50 group-hover:bg-white/10 group-disabled:bg-white group-disabled:text-black">
+            <div className="ease flex items-center rounded-sm border-2 border-white px-4 py-2 text-lg font-semibold uppercase tracking-wider text-white transition-colors duration-300 group-hover:border-neutral-50 group-hover:bg-white/10 group-disabled:bg-white group-disabled:text-black lg:px-6 lg:py-4">
               {loading ? "Generating..." : "Generate"}
               <ExternalIcon className="ml-2 size-4 translate-y-0.5 rotate-45 fill-white group-disabled:hidden" />
             </div>
