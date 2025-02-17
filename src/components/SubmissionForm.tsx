@@ -154,15 +154,18 @@ export default function SubmissionForm({
                 <>
                   <button
                     type="button"
-                    className="cursor-pointer text-black ml-0 mr-auto flex-shrink whitespace-nowrap pr-4"
+                    className="ml-0 mr-auto flex-shrink cursor-pointer whitespace-nowrap pr-4 text-black"
                     onClick={() => {
                       setSubmitted(false);
                       setImageUrl(null);
                     }}
                   >
-                   ← <span className="underline">Create another</span>
+                    ← <span className="underline">Create another</span>
                   </button>
-                  <Link href="/gallery" className="text-black flex-grow pl-4 ml-auto mr-0">
+                  <Link
+                    href="/gallery"
+                    className="ml-auto mr-0 flex-grow pl-4 text-black"
+                  >
                     <span className="underline">Visit gallery</span> →
                   </Link>
                 </>

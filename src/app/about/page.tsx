@@ -1,6 +1,16 @@
+import type { Metadata } from "next";
 import { gantari, platypi } from "@/assets/fonts";
 import GenerativeArt from "@/components/GenerativeArt";
+import dynamic from "next/dynamic";
 import cx from "classix";
+
+const AboutAccordion = dynamic(() => import("@/components/AboutAccordion"));
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Who, what, why and how SPARK·E was created. A project by VML in preparation for the Vercel + WPP v0.dev Hackathon.",
+};
 
 export default function About() {
   return (
@@ -9,7 +19,7 @@ export default function About() {
         <h1
           className={cx(
             gantari.className,
-            "text-4xl font-bold uppercase tracking-wide"
+            "mt-6 text-xl font-bold uppercase tracking-wide"
           )}
         >
           About <em>SPARK·E</em>
@@ -27,36 +37,7 @@ export default function About() {
           </p>
         </div>
 
-        <details name="case-study" className="mt-16 cursor-default">
-          <summary>Challenge</summary>
-          <p className="pt-4 text-xl">
-            The hackathon&rsquo;s challenge is to create a project which uses
-            Vercel&rsquo;s AI SDK and v0 platform.
-          </p>
-          <p>
-            This project was developed to explore the capabilities of the SDK
-            and its integration with the platform, prior to the official project
-            start.
-          </p>
-        </details>
-        <details name="case-study" className="mt-8">
-          <summary>Inspiration</summary>
-          <blockquote>
-            <p>
-              I generated several examples of applying ControlNet in Stable
-              Diffusion with the VML logo as the control input.
-            </p>
-          </blockquote>
-        </details>
-        <details name="case-study" className="mt-8">
-          <summary>Idea</summary>
-          <p className="text-xl">Make a VML-flavored version of DALL-E.</p>
-        </details>
-        <details name="case-study" className="mt-8">
-          <summary>Execution</summary>
-
-          <p className="text-xl">Very VML.</p>
-        </details>
+        <AboutAccordion />
       </article>
       <div
         className="-order-1 col-span-2 w-full flex-1 overflow-hidden bg-black contain-strict md:order-1 md:h-app"

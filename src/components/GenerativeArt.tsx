@@ -3,7 +3,6 @@
 import type React from "react";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import cx from "classix";
-import styles from "@/assets/styles/generative-art.module.css";
 import useDebounce from "@/lib/hooks/useDebounce";
 import { LOGO_SIZE } from "@/lib/constants";
 
@@ -12,6 +11,8 @@ const GenerativeArt: React.FC = () => {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const debouncedDimensions = useDebounce(dimensions, 100);
   const [cells, setCells] = useState<boolean[]>([]);
+  const [isFlippedAgain, setIsFlippedAgain] = useState<boolean[]>([]);
+  const [isClicked, setIsClicked] = useState<boolean[]>([]);
 
   const cellSize = Math.round(
     Math.max(debouncedDimensions.width, debouncedDimensions.height) / cellNumber
@@ -25,15 +26,28 @@ const GenerativeArt: React.FC = () => {
     cellNumber
   );
 
-  const [isFlippedAgain, setIsFlippedAgain] = useState<boolean[]>([]);
-
-  const handleCellHover = useCallback((index: number) => {
-    setCells((prevCells) => {
-      const newCells = [...prevCells];
-      newCells[index] = !newCells[index];
-      return newCells;
+  const handleMouseClick = useCallback((index: number) => {
+    setIsClicked((prevIsClicked) => {
+      const newIsClicked = [...prevIsClicked];
+      newIsClicked[index] = !newIsClicked[index];
+      return newIsClicked;
     });
   }, []);
+
+  const handleCellHover = useCallback(
+    (index: number, isMouseDown: boolean) => {
+      setCells((prevCells) => {
+        const newCells = [...prevCells];
+        newCells[index] = !newCells[index];
+        return newCells;
+      });
+
+      if (isMouseDown) {
+        handleMouseClick(index);
+      }
+    },
+    [handleMouseClick]
+  );
 
   const handleMouseLeave = useCallback((index: number) => {
     setIsFlippedAgain((prevIsFlippedAgain) => {
@@ -75,7 +89,7 @@ const GenerativeArt: React.FC = () => {
     return () => {
       window.removeEventListener("resize", updateDimensions);
     };
-  }, []);
+  }, [setDimensions, setCellNumber]);
 
   useEffect(() => {
     initializeCells();
@@ -83,7 +97,7 @@ const GenerativeArt: React.FC = () => {
 
   return (
     <div
-      className={cx(styles.grid, "contain-strict")}
+      className="generative-art"
       style={
         {
           "--cell-size": `${cellSize}px`,
@@ -95,20 +109,24 @@ const GenerativeArt: React.FC = () => {
       {cells.map((isFlipped, index) => (
         <div
           key={index}
-          onMouseEnter={() => handleCellHover(index)}
+          onMouseEnter={(event) => handleCellHover(index, event.buttons === 1)}
           onMouseLeave={() => handleMouseLeave(index)}
+          onClick={() => handleMouseClick(index)}
           className={cx(
-            styles.cell,
-            cellPatterns[index] ? styles.triangle : styles.striped
+            "cell",
+            cellPatterns[index] ? "triangle" : "striped",
+            isClicked[index] && "active"
           )}
           style={
             {
               "--triangle-rotation": isFlipped ? "45deg" : "-45deg",
-              "--triangle-color": isFlippedAgain[index]
-                ? "var(--color-0, lightblue)"
-                : isFlipped
-                  ? "var(--color-1, blue)"
-                  : "var(--color-2, navy)",
+              "--triangle-color": isClicked[index]
+                ? "var(--color-3, ghostwhite)"
+                : isFlippedAgain[index]
+                  ? "var(--color-0, lightblue)"
+                  : isFlipped
+                    ? "var(--color-1, blue)"
+                    : "var(--color-2, navy)",
             } as React.CSSProperties
           }
         ></div>

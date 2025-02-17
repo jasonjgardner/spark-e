@@ -15,6 +15,7 @@
 :root {
   --triangle-color: lightblue;
   --triangle-rotation: -45deg;
+  --cell-size: 100px;
   --background: #323232;
   --foreground: #fff;
   --cyan: #9ffeff;
@@ -49,31 +50,41 @@ body {
     list-style-type: none; /* Updated to remove default list style */
   }
 
-  details summary::after {
-    @apply ml-auto block size-4 -rotate-45 rounded-sm border-b-2 border-l-2 transition-transform;
-    content: "";
+  details > summary::after {
+    @apply ml-auto block size-6 origin-center transition-transform;
+    content: url("/chevron-thin.svg");
   }
 
-  details[open] summary::after {
-    transform: rotate(135deg) translateX(0.75rem);
-    transform-origin: center;
+  details[open] > summary::after {
+    @apply rotate-180 transform;
   }
 
-  details summary ~ * {
-    @apply mt-4 h-auto px-4 opacity-100 transition-all duration-300 ease-in-out;
+  .details-content {
+    @apply mt-4 h-0 px-4 opacity-0 transition-all duration-300 ease-in-out hidden;
+
+    
+  }
+
+  details[open] .details-content {
+    @apply h-auto block opacity-100;
+    @starting-style {
+      height: 0;
+      opacity: 0;
+    }
   }
 
   blockquote {
-    @apply block text-2xl font-medium tracking-wider text-white;
+    @apply grid text-balance text-2xl font-medium tracking-wider text-white;
+    grid-template-columns: 1em auto 1em;
   }
 
   blockquote::before {
-    @apply block size-4 -rotate-45 rounded-sm border-b-2 border-l-2 transition-transform;
+    @apply size-4 justify-self-end;
     content: open-quote;
   }
 
   blockquote::after {
-    @apply block size-4 -rotate-45 rounded-sm border-b-2 border-l-2 transition-transform;
+    @apply size-4 self-end;
     content: close-quote;
   }
 
@@ -168,5 +179,43 @@ body {
 
   .prompt-controls input[type="radio"]:checked {
     @apply bg-blue-600 ring-2 ring-blue-600;
+  }
+
+  .generative-art {
+    @apply grid h-full w-full select-none gap-0 overflow-hidden bg-transparent contain-strict;
+  }
+
+  .cell {
+    transition: --triangle-rotation 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+    width: minmax(var(--cell-size, 100px), 1fr);
+  }
+
+  .triangle,
+  .striped {
+    @apply h-full w-full bg-cover bg-no-repeat;
+  }
+
+  .triangle {
+    background-image: linear-gradient(
+      var(--triangle-rotation, -45deg),
+      transparent,
+      transparent 49.999%,
+      var(--triangle-color) 50%,
+      var(--triangle-color) 100%
+    );
+  }
+
+  .striped {
+    background-image: linear-gradient(
+      var(--triangle-rotation, -45deg),
+      transparent,
+      transparent 24.999%,
+      var(--triangle-color) 25%,
+      var(--triangle-color) 49.999%,
+      transparent 50%,
+      transparent 74.999%,
+      var(--triangle-color) 75%,
+      var(--triangle-color) 100%
+    );
   }
 }

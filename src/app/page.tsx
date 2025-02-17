@@ -8,8 +8,6 @@ import images from "@/data/images";
 import GenerativeArt from "@/components/GenerativeArt";
 
 export default async function Home() {
-  images.length = 14;
-
   return (
     <div className="grid grid-flow-row scroll-smooth sm:grid-cols-3 xl:grid-cols-5">
       <div className="relative col-span-5 h-[66vh] overflow-hidden contain-size">
@@ -29,7 +27,7 @@ export default async function Home() {
           </div>
 
           <div className="place-content-start items-start justify-items-start sm:col-span-3">
-            <Gallery images={images} title="Curated Creations" />
+            <Gallery images={images} title="Curated Creations" limit={14} />
           </div>
         </div>
       </div>
