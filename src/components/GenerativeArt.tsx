@@ -1,16 +1,26 @@
 "use client";
 
 import type React from "react";
-import { useEffect, useState, useCallback, useMemo } from "react";
+import { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import cx from "classix";
 import useDebounce from "@/lib/hooks/useDebounce";
 import { LOGO_SIZE } from "@/lib/constants";
 
-const GenerativeArt: React.FC = () => {
+export interface Pattern {
+  data: boolean[][];
+  position?: "center" | "topLeft";
+}
+
+interface GenerativeArtProps {
+  pattern?: Pattern;
+}
+
+const GenerativeArt: React.FC<GenerativeArtProps> = ({ pattern }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [cellNumber, setCellNumber] = useState(LOGO_SIZE);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-  const debouncedDimensions = useDebounce(dimensions, 100);
-  const [cells, setCells] = useState<boolean[]>([]);
+  const debouncedDimensions = useDebounce(dimensions, 150);
+  const [cells, setCells] = useState<Array<boolean | null>>([]);
   const [isFlippedAgain, setIsFlippedAgain] = useState<boolean[]>([]);
   const [isClicked, setIsClicked] = useState<boolean[]>([]);
 
@@ -26,13 +36,16 @@ const GenerativeArt: React.FC = () => {
     cellNumber
   );
 
-  const handleMouseClick = useCallback((index: number) => {
-    setIsClicked((prevIsClicked) => {
-      const newIsClicked = [...prevIsClicked];
-      newIsClicked[index] = !newIsClicked[index];
-      return newIsClicked;
-    });
-  }, []);
+  const handleMouseClick = useCallback(
+    (index: number) => {
+      setIsClicked((prevIsClicked) => {
+        const newIsClicked = [...prevIsClicked];
+        newIsClicked[index] = !newIsClicked[index];
+        return newIsClicked;
+      });
+    },
+    [setIsClicked]
+  );
 
   const handleCellHover = useCallback(
     (index: number, isMouseDown: boolean) => {
@@ -46,16 +59,19 @@ const GenerativeArt: React.FC = () => {
         handleMouseClick(index);
       }
     },
-    [handleMouseClick]
+    [handleMouseClick, setCells]
   );
 
-  const handleMouseLeave = useCallback((index: number) => {
-    setIsFlippedAgain((prevIsFlippedAgain) => {
-      const newIsFlippedAgain = [...prevIsFlippedAgain];
-      newIsFlippedAgain[index] = !newIsFlippedAgain[index];
-      return newIsFlippedAgain;
-    });
-  }, []);
+  const handleMouseLeave = useCallback(
+    (index: number) => {
+      setIsFlippedAgain((prevIsFlippedAgain) => {
+        const newIsFlippedAgain = [...prevIsFlippedAgain];
+        newIsFlippedAgain[index] = !newIsFlippedAgain[index];
+        return newIsFlippedAgain;
+      });
+    },
+    [setIsFlippedAgain]
+  );
 
   const cellPatterns = useMemo(() => {
     return Array.from({ length: cols * rows }, () => Math.random() < 0.5);
@@ -66,30 +82,59 @@ const GenerativeArt: React.FC = () => {
       { length: cols * rows },
       () => Math.random() < 0.5
     );
+
+    if (pattern) {
+      const { data, position = "center" } = pattern;
+      const patternHeight = data.length;
+      const patternWidth = data[0]?.length || 0;
+
+      if (!patternHeight || !patternWidth) {
+        return setCells(newCells);
+      }
+
+      let startRow = 0;
+      let startCol = 0;
+
+      if (position === "center") {
+        startRow = Math.floor((rows - patternHeight) / 2);
+        startCol = Math.floor((cols - patternWidth) / 2);
+      }
+
+      data.forEach((row, rowIndex) => {
+        row.forEach((cell, colIndex) => {
+          const gridIndex =
+            (startRow + rowIndex) * cols + (startCol + colIndex);
+          if (gridIndex >= 0 && gridIndex < newCells.length) {
+            newCells[gridIndex] = cell === true ? null : Math.random() > 0.5;
+          }
+        });
+      });
+    }
+
     setCells(newCells);
-  }, [cols, rows]);
+  }, [cols, rows, setCells, pattern]);
 
   useEffect(() => {
-    const updateDimensions = () => {
-      setDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
+    if (!containerRef.current) {
+      return;
+    }
 
-      setCellNumber(
-        Math.floor(Math.min(window.innerWidth, window.innerHeight) / 24)
-      );
-    };
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const width = entry.contentRect.width;
+        const height = entry.contentRect.height;
 
-    // Initial dimensions update
-    updateDimensions();
+        setDimensions({ width, height });
+        setCellNumber(Math.ceil(Math.max(width, height) / LOGO_SIZE));
+      }
+    });
 
-    window.addEventListener("resize", updateDimensions);
+    resizeObserver.observe(containerRef.current);
 
     return () => {
-      window.removeEventListener("resize", updateDimensions);
+      resizeObserver.disconnect();
     };
-  }, [setDimensions, setCellNumber]);
+  }, [containerRef, setDimensions, setCellNumber]);
 
   useEffect(() => {
     initializeCells();
@@ -98,11 +143,12 @@ const GenerativeArt: React.FC = () => {
   return (
     <div
       className="generative-art"
+      ref={containerRef}
       style={
         {
           "--cell-size": `${cellSize}px`,
-          gridTemplateColumns: `repeat(${cols}, var(--cell-size))`,
-          gridTemplateRows: `repeat(${rows}, var(--cell-size))`,
+          gridTemplateColumns: `repeat(${cols ?? "auto-fill"}, minmax(var(--cell-size), 1fr))`,
+          gridTemplateRows: `repeat(${rows ?? "auto-fill"}, minmax(var(--cell-size), 1fr))`,
         } as React.CSSProperties
       }
     >
@@ -113,9 +159,13 @@ const GenerativeArt: React.FC = () => {
           onMouseLeave={() => handleMouseLeave(index)}
           onClick={() => handleMouseClick(index)}
           className={cx(
-            "cell",
             cellPatterns[index] ? "triangle" : "striped",
-            isClicked[index] && "active"
+            isClicked[index] && "active",
+            cells[index] === null
+              ? "pattern-cell"
+              : cells[index] === false
+                ? "cell"
+                : null
           )}
           style={
             {

@@ -188,6 +188,11 @@ body {
     width: minmax(var(--cell-size, 100px), 1fr);
   }
 
+  .pattern-cell {
+      --triangle-color: white !important;
+      background-color: white;
+    }
+
   .triangle,
   .striped {
     @apply h-full w-full bg-cover bg-no-repeat;
