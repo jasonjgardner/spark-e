@@ -150,25 +150,23 @@ export default function SubmissionForm({
             </div>
 
             <div className="mt-4 flex items-center justify-between divide-x divide-neutral-300">
+              <button
+                type="button"
+                className="ml-0 mr-auto flex-shrink cursor-pointer whitespace-nowrap pr-4 text-black"
+                onClick={() => {
+                  setSubmitted(false);
+                  setImageUrl(null);
+                }}
+              >
+                ← <span className="underline">Create another</span>
+              </button>
               {submitted ? (
-                <>
-                  <button
-                    type="button"
-                    className="ml-0 mr-auto flex-shrink cursor-pointer whitespace-nowrap pr-4 text-black"
-                    onClick={() => {
-                      setSubmitted(false);
-                      setImageUrl(null);
-                    }}
-                  >
-                    ← <span className="underline">Create another</span>
-                  </button>
-                  <Link
-                    href="/gallery"
-                    className="ml-auto mr-0 flex-grow pl-4 text-black"
-                  >
-                    <span className="underline">Visit gallery</span> →
-                  </Link>
-                </>
+                <Link
+                  href="/gallery"
+                  className="ml-auto mr-0 flex-grow pl-4 text-black"
+                >
+                  <span className="underline">Visit gallery</span> →
+                </Link>
               ) : loading ? (
                 <span className="animate-pulse cursor-wait text-neutral-600">
                   Uploading image...
