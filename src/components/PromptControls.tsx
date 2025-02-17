@@ -12,7 +12,7 @@ export default function PromptControls() {
         Steps
       </label>
       <input
-        className="flex-1 text-black accent-white"
+        className="min-w-16 flex-1 text-black accent-white"
         type="range"
         id="steps"
         name="num_inference_steps"
@@ -31,7 +31,7 @@ export default function PromptControls() {
         Logo Influence
       </label>
       <input
-        className="flex-1 text-black accent-white"
+        className="min-w-16 flex-1 text-black accent-white"
         type="range"
         id="scale"
         name="condition_scale"
